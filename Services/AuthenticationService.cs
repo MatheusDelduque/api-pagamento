@@ -1,5 +1,6 @@
 namespace pagamento.Services;
-public class AuthenticationService(PersonService personService)
+using pagamento.Interfaces;
+public class AuthenticationService(PersonService personService): IAuthenticationService
 {
 
     public string? Login(string email, string senha)

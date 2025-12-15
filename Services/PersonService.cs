@@ -1,7 +1,8 @@
 namespace pagamento.Services;
-
 using pagamento.Entities;
-public class PersonService
+using pagamento.Interfaces;
+
+public class PersonService : IPersonService
 {
     private readonly List<PersonEntity> people = [];
     public string Register(string email, string password)

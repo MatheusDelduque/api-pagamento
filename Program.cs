@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using pagamento.Services;
 using pagamento.Dtos;
+using pagamento.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,8 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-builder.Services.AddSingleton<PersonService>();
-builder.Services.AddSingleton<AuthenticationService>();
+builder.Services.AddSingleton<IPersonService, PersonService>();
+builder.Services.AddSingleton<IAuthenticationService, AuthenticationService>();
 
 var app = builder.Build();
 
@@ -27,10 +28,8 @@ app.MapPost("/api/v1/register", ([FromBody] RegisterRequest request, PersonServi
     {
         Status = "Sucess",
         Message = response
-
     };
 });
-
 
 
 app.MapGet("/api/v1/people",
@@ -43,9 +42,6 @@ app.MapGet("/api/v1/people",
 
     return personService.FindAll();
 });
-
-
-
 
 app.MapPost("/api/v1/login",
 ([FromBody] LoginRequest logarRequest, AuthenticationService logarService, PersonService personService) =>

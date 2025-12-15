@@ -7,9 +7,3 @@ public class PersonEntity
     public required string Password { get; set; }
     public required AccountEntity Account { get; set; }
 }
-
-public class AccountEntity
-{
-    public Guid Id { get; set; }
-    public string? Token { get; set; }
-}

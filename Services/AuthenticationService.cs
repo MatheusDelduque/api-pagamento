@@ -1,26 +1,27 @@
 namespace pagamento.Services;
 using pagamento.Interfaces;
-public class AuthenticationService(PersonService personService): IAuthenticationService
+using pagamento.Dtos;
+public class AuthenticationService(IPersonService personService) : IAuthenticationService
 {
 
-    public string? Login(string email, string senha)
+    public LoginResult Login(string email, string senha)
     {
         var person = personService.FindByEmail(email);
 
         if (person == null)
         {
-            return null;
+            return LoginResult.FailureResult("Email ou senha inválidos");
         }
 
         if (person.Password != senha)
         {
-            return null;
+            return LoginResult.FailureResult("Email ou senha inválidos");
         }
 
         var token = Guid.NewGuid().ToString();
         person.Account.Token = token;
 
-        return token;
+        return LoginResult.SuccessResult(token);
     }
 
     public bool ValidateAuthorization(string? authorization)

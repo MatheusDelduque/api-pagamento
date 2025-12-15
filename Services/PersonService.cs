@@ -1,4 +1,6 @@
 namespace pagamento.Services;
+
+using pagamento.Dtos;
 using pagamento.Entities;
 using pagamento.Interfaces;
 
@@ -20,9 +22,14 @@ public class PersonService : IPersonService
         return $"Email cadastrado com sucesso {email}";
     }
 
-    public List<PersonEntity> FindAll()
+    public List<PeopleResponse> FindAll()
     {
-        return people;
+
+        return [.. people.Select(pessoa => new PeopleResponse()
+        {
+            Id = pessoa.Id.ToString(),
+            Email = pessoa.Email
+        })];
     }
 
     public PersonEntity? FindById(string id)

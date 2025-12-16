@@ -11,11 +11,23 @@ namespace pagamento.Controllers;
 public class AuthenticationController() : Controller
 {
 
+    [HttpPost("v1/register")]
+    public RegisterResponse Register([FromBody] RegisterRequest personRequest, IAuthenticationService authenticationService)
+    {
+        var response = authenticationService.Register(personRequest.Email, personRequest.Password);
+
+        return new RegisterResponse()
+        {
+            Status = "200",
+            Message = response
+        };
+    }
+
     [HttpPost("v1/login")]
-    public LoginResponse Login([FromBody] LoginRequest logarRequest, IAuthenticationService logarService)
+    public LoginResponse Login([FromBody] LoginRequest logarRequest, IAuthenticationService authenticationService)
     {
 
-        var response = logarService.Login(logarRequest.Email, logarRequest.Password);
+        var response = authenticationService.Login(logarRequest.Email, logarRequest.Password);
 
         if (response.Success == false)
         {

@@ -13,18 +13,6 @@ namespace pagamento.Controllers;
 public class PeopleController() : Controller
 {
 
-    [HttpPost("v1/register")]
-    public RegisterResponse Register([FromBody] RegisterRequest personRequest, IPersonService personService)
-    {
-        var response = personService.Register(personRequest.Email, personRequest.Password);
-
-        return new RegisterResponse()
-        {
-            Status = "200",
-            Message = response
-        };
-    }
-
     [HttpGet("v1/people")]
     public List<PeopleResponse> GetPersonController([FromHeader(Name = "Authorization")] string? authorizationHeader, IPersonService personService, IAuthenticationService authenticationService)
 

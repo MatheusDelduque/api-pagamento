@@ -1,8 +1,25 @@
 namespace pagamento.Services;
 using pagamento.Interfaces;
 using pagamento.Dtos;
+using pagamento.Entities;
+
 public class AuthenticationService(IPersonService personService) : IAuthenticationService
 {
+
+    public string Register(string email, string password)
+    {
+        var person = new PersonEntity()
+        {
+            Id = Guid.NewGuid(),
+            Email = email,
+            Password = password,
+            Account = new AccountEntity()
+        };
+
+        personService.AddPerson(person);
+
+        return $"Email cadastrado com sucesso {email}";
+    }
 
     public LoginResult Login(string email, string senha)
     {

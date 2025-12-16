@@ -5,9 +5,8 @@ using pagamento.Entities;
 
 public interface IPersonService
 {
+    void AddPerson(PersonEntity person);
 
-    string Register(string email, string password);
-    
     List<PeopleResponse> FindAll();
     
     PersonEntity? FindById(string id);

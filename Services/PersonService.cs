@@ -6,21 +6,11 @@ using pagamento.Interfaces;
 
 public class PersonService : IPersonService
 {
-    private readonly List<PersonEntity> people = [];
-    public string Register(string email, string password)
+    public void AddPerson(PersonEntity person)
     {
-        var person = new PersonEntity()
-        {
-            Id = Guid.NewGuid(),
-            Email = email,
-            Password = password,
-            Account = new AccountEntity()
-        };
-
         people.Add(person);
-
-        return $"Email cadastrado com sucesso {email}";
     }
+    private readonly List<PersonEntity> people = [];
 
     public List<PeopleResponse> FindAll()
     {

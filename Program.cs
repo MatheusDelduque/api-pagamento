@@ -1,4 +1,4 @@
-using Pagamento.API.Domain.Payments.Interfaces;
+using Pagamento.API.Domain.Payments.Contracts;
 using Pagamento.API.Domain.Payments.Services;
 
 var builder = WebApplication.CreateBuilder(args);

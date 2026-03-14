@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Pagamento.API.Domain.Payments.Contracts;
 using Pagamento.API.Domain.Payments.Dtos;
-using Pagamento.API.Domain.Payments.Interfaces;
 
 namespace Pagamento.API.Controllers;
 

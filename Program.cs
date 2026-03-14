@@ -1,7 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
-using pagamento.Services;
-using pagamento.Dtos;
-using pagamento.Interfaces;
+using Pagamento.API.Domain.Payments.Interfaces;
+using Pagamento.API.Domain.Payments.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +10,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
 
-builder.Services.AddSingleton<IPersonService, PersonService>();
-builder.Services.AddSingleton<IAuthenticationService, AuthenticationService>();
+builder.Services.AddSingleton<IPaymentService, PaymentService>();
 
 var app = builder.Build();
 

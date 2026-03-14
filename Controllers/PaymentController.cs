@@ -1,39 +1,16 @@
-using System.Security.Principal;
 using Microsoft.AspNetCore.Mvc;
-using pagamento.Dtos;
-using pagamento.Interfaces;
+using Pagamento.API.Domain.Payments.Dtos;
+using Pagamento.API.Domain.Payments.Interfaces;
 
-namespace pagamento.Controllers;
+namespace Pagamento.API.Controllers;
 
 
 [ApiController]
 [Route("api/[controller]")]
-public class PaymentController() : Controller
+public class PaymentController(IPaymentService PaymentService) : Default.Controller
 {
-
-    [HttpPost("v1/process-payment")]
-    public ProcessResponse ProcessPayment([FromBody] ProcessRequest paymentRequest, IPaymentService paymentService)
-    {
-        paymentService.ProcessPayment(paymentRequest.Email, paymentRequest.Amount, paymentRequest.AuthorizationToken);
-
-        return new ProcessResponse()
-        {
-            Status = "200",
-            Message = "Payment processed successfully"
-        };
-    }
-
-    [HttpPost("v1/refund-payment")]
-    public ProcessResponse RefundPayment([FromBody] RefundRequest refundRequest, IPaymentService paymentService)
-    {
-        paymentService.RefoundPayment(refundRequest.PaymentId, refundRequest.Amount, refundRequest.TransactionId, refundRequest.AuthorizationToken);
-
-        return new ProcessResponse()
-        {
-            Status = "200",
-            Message = "Payment refunded successfully"
-        };
-    }   
-
+    [HttpPost("/process-payment")]
+    public async Task<IActionResult> ProcessPayment([FromBody] ProcessRequest paymentRequest)
+        => await HandleRequest(() => PaymentService.ProcessPayment(paymentRequest));
 }
 
